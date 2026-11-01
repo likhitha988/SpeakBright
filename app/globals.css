@@ -1,0 +1,303 @@
+@import "tailwindcss";
+
+/* ---------- SpeakBright design tokens ---------- */
+@theme {
+  --color-ink: #26244a;
+  --color-ink-soft: #4a4870;
+  --color-ink-mute: #66658a;
+
+  --color-lav-50: #f7f5ff;
+  --color-lav-100: #eeeafe;
+  --color-lav-200: #ddd6fc;
+  --color-lav-300: #c4b9f7;
+  --color-lav-400: #a697ee;
+  --color-lav-500: #8874e4;
+  --color-lav-600: #6650d4;
+  --color-lav-700: #5440b5;
+  --color-lav-800: #40308c;
+
+  --color-sky-50: #f1f9fe;
+  --color-sky-100: #ddf0fc;
+  --color-sky-200: #bde2f8;
+  --color-sky-300: #8ccdf1;
+  --color-sky-400: #58b3e6;
+  --color-sky-500: #2f97d6;
+  --color-sky-600: #1e78b1;
+  --color-sky-700: #195f8c;
+
+  --color-mint-50: #f0fbf6;
+  --color-mint-100: #d9f5e8;
+  --color-mint-200: #b4ebd3;
+  --color-mint-300: #82dcb6;
+  --color-mint-400: #4fc794;
+  --color-mint-500: #2ead78;
+  --color-mint-600: #1f8a5e;
+  --color-mint-700: #1a6e4c;
+
+  --color-cream: #fffbf3;
+  --color-cream-100: #fff6e6;
+  --color-cream-200: #fbebd0;
+
+  --color-coral-50: #fff3f0;
+  --color-coral-100: #ffe3dc;
+  --color-coral-200: #ffc8bb;
+  --color-coral-400: #ff8b72;
+  --color-coral-500: #f4694e;
+  --color-coral-600: #c9442b;
+
+  --font-sans: ui-rounded, "SF Pro Rounded", "Nunito", "Segoe UI", system-ui, -apple-system, Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+
+  --shadow-soft: 0 8px 24px -10px rgba(84, 64, 181, 0.35);
+  --shadow-card: 0 2px 4px rgba(38, 36, 74, 0.04), 0 14px 32px -18px rgba(84, 64, 181, 0.3);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pop: pop 0.35s ease-out both;
+  --animate-fade-up: fadeUp 0.45s ease-out both;
+  --animate-ring: ring 1.4s ease-out infinite;
+  --animate-confetti: confetti 2s ease-in forwards;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-7px);
+    }
+  }
+  @keyframes pop {
+    0% {
+      transform: scale(0.92);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  @keyframes fadeUp {
+    0% {
+      transform: translateY(8px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes ring {
+    0% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
+  @keyframes confetti {
+    0% {
+      transform: translateY(-14px) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(190px) rotate(260deg);
+      opacity: 0;
+    }
+  }
+}
+
+/* ---------- Base ---------- */
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+:focus-visible {
+  outline: 3px solid var(--color-lav-500);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+::selection {
+  background: var(--color-lav-200);
+}
+button,
+a,
+select,
+input,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* ---------- Reusable pieces ---------- */
+/* Inside @layer components so Tailwind utilities (hidden, xl:hidden...) can still override them. */
+@layer components {
+.card {
+  background: #fff;
+  border: 1px solid var(--color-lav-100);
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-card);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.975rem;
+  line-height: 1.2;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  cursor: pointer;
+  text-align: center;
+}
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+.btn:disabled {
+  opacity: 0.5;
+}
+.btn-primary {
+  background: var(--color-lav-600);
+  color: #fff;
+  box-shadow: var(--shadow-soft);
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--color-lav-700);
+}
+.btn-soft {
+  background: var(--color-lav-100);
+  color: var(--color-lav-800);
+}
+.btn-soft:hover:not(:disabled) {
+  background: var(--color-lav-200);
+}
+.btn-outline {
+  background: #fff;
+  color: var(--color-lav-800);
+  border: 2px solid var(--color-lav-200);
+}
+.btn-outline:hover:not(:disabled) {
+  border-color: var(--color-lav-400);
+}
+.btn-mint {
+  background: var(--color-mint-500);
+  color: #fff;
+}
+.btn-mint:hover:not(:disabled) {
+  background: var(--color-mint-600);
+}
+.btn-coral {
+  background: var(--color-coral-500);
+  color: #fff;
+}
+.btn-coral:hover:not(:disabled) {
+  background: var(--color-coral-600);
+}
+.btn-sm {
+  min-height: 2.25rem;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.875rem;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background: #fff;
+  color: var(--color-ink-soft);
+  border: 2px solid var(--color-lav-100);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.chip:hover {
+  border-color: var(--color-lav-300);
+}
+.chip[aria-pressed="true"],
+.chip[aria-selected="true"] {
+  background: var(--color-lav-600);
+  border-color: var(--color-lav-600);
+  color: #fff;
+}
+.field {
+  width: 100%;
+  border-radius: 1rem;
+  border: 2px solid var(--color-lav-200);
+  background: #fff;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: var(--color-ink);
+}
+.field:focus {
+  outline: none;
+  border-color: var(--color-lav-500);
+  box-shadow: 0 0 0 4px var(--color-lav-100);
+}
+.eyebrow {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-lav-700);
+}
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  background: var(--color-lav-700);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.skip-link:focus {
+  top: 0.75rem;
+}
+.reading-text {
+  line-height: 1.85;
+  letter-spacing: 0.005em;
+}
+.needs-practice {
+  background: var(--color-coral-100);
+  border-bottom: 3px solid var(--color-coral-400);
+  border-radius: 4px;
+  padding: 0 2px;
+}
+
+}
+
+/* ---------- Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+html[data-motion="reduce"] *,
+html[data-motion="reduce"] *::before,
+html[data-motion="reduce"] *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
